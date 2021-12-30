@@ -1,6 +1,18 @@
 import { Layout } from "components";
+import { useFormik } from "formik";
 
 const CrearCuenta = () => {
+
+  // Formulario con formik y validacion con yup
+  const formik = useFormik({
+    initialValues: {
+      nombre: "",
+      email: "",
+      password: "",
+    },
+    onSubmit: (values) => { console.log("Formulario enviado", values); },
+  });
+
   return (
     <Layout >
       <div className="md:w-4/5 xl:w-3/5 mx-auto mb-32">
@@ -9,7 +21,7 @@ const CrearCuenta = () => {
         </h2>
         <div className="flex justify-center mt-5">
           <div className="w-full max-w-lg">
-            <form className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4">
+            <form className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4" onSubmit={formik.handleSubmit}>
               <div className="mb-4 ">
                 <label 
                   className="block text-black text-sm font-bold mb-2"
@@ -22,6 +34,9 @@ const CrearCuenta = () => {
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="nombre"
                   placeholder="Nombre de usuario"
+                  value={formik.values.nombre}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 /> 
               </div>
 
@@ -36,7 +51,10 @@ const CrearCuenta = () => {
                   type="email"
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="email"
-                  placeholder="Nombre de usuario"
+                  placeholder="Email"
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 /> 
               </div>
 
@@ -50,8 +68,11 @@ const CrearCuenta = () => {
                 <input 
                   type="password"
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="password'"
-                  placeholder="Nombre de usuario"
+                  id="password"
+                  placeholder="Password"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 /> 
               </div>
 
