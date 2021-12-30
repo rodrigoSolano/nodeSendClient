@@ -1,7 +1,9 @@
+import { Layout } from "components"
+
 export default function Home() {
   return (
-    <div>
-      Inicio
-    </div>
+    <Layout>
+      <h1>Index</h1>
+    </Layout>
   )
 }
