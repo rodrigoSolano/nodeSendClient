@@ -3,14 +3,14 @@ import authContext from "./authContext";
 import authReducer from "./authReducer";
 import clienteAxios from "services/config";
 
-import { REGISTRO_EXITOSO, REGISTRO_ERROR } from "types";
+import { REGISTRO_EXITOSO, REGISTRO_ERROR, LOGIN_EXITOSO, LOGIN_ERROR } from "types";
 
 const AuthState = ({ children }) => {
 
   // Definir state inicial
   const initialState = {
-    token: '',
-    autenticado: null,
+    token: typeof window !== 'undefined' ? localStorage.getItem("token") : "",
+    autenticado: typeof window !== 'undefined' ? (localStorage.getItem("token") ? true : null) : null ,
     usuario: null,
     mensaje: null,
   }
@@ -37,13 +37,33 @@ const AuthState = ({ children }) => {
     }
   }
 
+  // Autenticar usuario
+  const iniciarSesion = async (datos) => {
+    try{
+      const respuesta = await clienteAxios.post('/api/auth', datos);
+      console.log(respuesta);
+      dispatch({
+        type: LOGIN_EXITOSO,
+        payload: respuesta.data.token
+      });
+    }catch(error){
+      console.log("Error al iniciar sesion");
+      console.log(error);
+      dispatch({
+        type: LOGIN_ERROR,
+        payload: error.response.data.msg
+      });
+    }
+  }
+
   return (
     <authContext.Provider value={{
       token: state.token,
       autenticado: state.autenticado,
       usuario: state.usuario,
       mensaje: state.mensaje,
-      registrarUsuario
+      registrarUsuario,
+      iniciarSesion
     }}>
       {children}
     </authContext.Provider>
