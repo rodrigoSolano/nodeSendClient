@@ -3,6 +3,8 @@ import authContext from "./authContext";
 import authReducer from "./authReducer";
 import clienteAxios from "services/config";
 
+import { REGISTRO_EXITOSO } from "types";
+
 const AuthState = ({ children }) => {
 
   // Definir state inicial
@@ -21,6 +23,10 @@ const AuthState = ({ children }) => {
     try{
       const respuesta = await clienteAxios.post('/api/usuarios', datos);
       console.log(respuesta);
+      dispatch({
+        type: REGISTRO_EXITOSO,
+        payload: respuesta.data.msg
+      });
     }catch(error){
       console.log("Error al registrar usuario");
       console.log(error);
