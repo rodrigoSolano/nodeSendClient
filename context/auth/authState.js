@@ -3,7 +3,7 @@ import authContext from "./authContext";
 import authReducer from "./authReducer";
 import clienteAxios from "services/config";
 
-import { REGISTRO_EXITOSO } from "types";
+import { REGISTRO_EXITOSO, REGISTRO_ERROR } from "types";
 
 const AuthState = ({ children }) => {
 
@@ -30,6 +30,10 @@ const AuthState = ({ children }) => {
     }catch(error){
       console.log("Error al registrar usuario");
       console.log(error);
+      dispatch({
+        type: REGISTRO_ERROR,
+        payload: error.response.data.msg
+      });
     }
   }
 
