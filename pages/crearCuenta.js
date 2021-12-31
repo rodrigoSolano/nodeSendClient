@@ -1,8 +1,13 @@
 import { Layout } from "components";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useContext } from "react";
+import authContext from "context/auth/authContext";
 
 const CrearCuenta = () => {
+  
+  const AuthContext = useContext(authContext);
+  const { registrarUsuario } = AuthContext;
 
   // Formulario con formik y validacion con yup
   const formik = useFormik({
@@ -16,7 +21,7 @@ const CrearCuenta = () => {
       email: Yup.string().email("El email no es valido").required("El email es obligatorio"),
       password: Yup.string().required("El password es obligatorio").min(6, "El password debe contener al menos 6 caracteres"),
     }),
-    onSubmit: (values) => { console.log("Formulario enviado", values); },
+    onSubmit: (values) => registrarUsuario(values),
   });
 
   return (
