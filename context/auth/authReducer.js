@@ -3,7 +3,8 @@ import {
   REGISTRO_ERROR, 
   LOGIN_EXITOSO, 
   LOGIN_ERROR,
-  USUARIO_AUTENTICADO 
+  USUARIO_AUTENTICADO,
+  CERRAR_SESION 
 } from "types";
 
 export default function(state, action){
@@ -26,6 +27,14 @@ export default function(state, action){
       return {
         ...state,
         usuario: action.payload
+      }
+    case CERRAR_SESION:
+      localStorage.removeItem('token');
+      return {
+        ...state,
+        usuario: null,
+        token: null,
+        autenticado: false
       }
     default:
       return state;

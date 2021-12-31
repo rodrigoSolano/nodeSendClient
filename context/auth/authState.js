@@ -9,7 +9,8 @@ import {
   REGISTRO_ERROR, 
   LOGIN_EXITOSO, 
   LOGIN_ERROR, 
-  USUARIO_AUTENTICADO 
+  USUARIO_AUTENTICADO,
+  CERRAR_SESION 
 } from "types";
 
 const AuthState = ({ children }) => {
@@ -82,6 +83,13 @@ const AuthState = ({ children }) => {
     }
   }
 
+  // Cerrar sesion
+  const cerrarSesion = () => {
+    dispatch({
+      type: CERRAR_SESION
+    });
+  }
+
   return (
     <authContext.Provider value={{
       token: state.token,
@@ -90,7 +98,8 @@ const AuthState = ({ children }) => {
       mensaje: state.mensaje,
       registrarUsuario,
       iniciarSesion,
-      usuarioAutenticado
+      usuarioAutenticado,
+      cerrarSesion
     }}>
       {children}
     </authContext.Provider>
