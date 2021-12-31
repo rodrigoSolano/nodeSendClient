@@ -1,4 +1,10 @@
-import { REGISTRO_EXITOSO, REGISTRO_ERROR, LOGIN_EXITOSO, LOGIN_ERROR } from "types";
+import { 
+  REGISTRO_EXITOSO, 
+  REGISTRO_ERROR, 
+  LOGIN_EXITOSO, 
+  LOGIN_ERROR,
+  USUARIO_AUTENTICADO 
+} from "types";
 
 export default function(state, action){
   switch (action.type) {
@@ -16,6 +22,11 @@ export default function(state, action){
         token: action.payload,
         autenticado: true
       };
+    case USUARIO_AUTENTICADO:
+      return {
+        ...state,
+        usuario: action.payload
+      }
     default:
       return state;
   }

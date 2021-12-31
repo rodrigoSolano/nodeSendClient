@@ -2,8 +2,15 @@ import React, { useReducer } from "react";
 import authContext from "./authContext";
 import authReducer from "./authReducer";
 import clienteAxios from "services/config";
+import tokenAuth from "services/tokenAuth";
 
-import { REGISTRO_EXITOSO, REGISTRO_ERROR, LOGIN_EXITOSO, LOGIN_ERROR } from "types";
+import { 
+  REGISTRO_EXITOSO, 
+  REGISTRO_ERROR, 
+  LOGIN_EXITOSO, 
+  LOGIN_ERROR, 
+  USUARIO_AUTENTICADO 
+} from "types";
 
 const AuthState = ({ children }) => {
 
@@ -56,6 +63,25 @@ const AuthState = ({ children }) => {
     }
   }
 
+  // Usuario autenticado en base al JWT
+  const usuarioAutenticado = async () => {
+    try{
+      const token = localStorage.getItem("token");
+      if(token){
+        tokenAuth(token);
+      }
+      const respuesta = await clienteAxios.get('/api/auth');
+      console.log(respuesta);
+      dispatch({
+        type: USUARIO_AUTENTICADO,
+        payload: respuesta.data.usuario
+      });
+    }catch{
+      console.log("Error al usuario autenticado");
+      console.log(error);
+    }
+  }
+
   return (
     <authContext.Provider value={{
       token: state.token,
@@ -63,7 +89,8 @@ const AuthState = ({ children }) => {
       usuario: state.usuario,
       mensaje: state.mensaje,
       registrarUsuario,
-      iniciarSesion
+      iniciarSesion,
+      usuarioAutenticado
     }}>
       {children}
     </authContext.Provider>
