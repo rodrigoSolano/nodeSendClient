@@ -6,7 +6,7 @@ import clienteAxios from "services/config"
 const Dropzone = () => {
 
   const AppContext = useContext(appContext)
-  const { mostrarAlerta } = AppContext
+  const { cargando, mostrarAlerta, subirArchivo } = AppContext
 
   const onDropRejected = () => {
     console.log("Archivo rechazado")
@@ -20,8 +20,12 @@ const Dropzone = () => {
     const formData = new FormData()
     formData.append("archivo", acceptedFiles[0])
 
-    const resultado = await clienteAxios.post("/api/archivos", formData)
-    console.log(resultado.data)
+    const nombre_original = acceptedFiles[0].path
+
+    // Subir archivo
+    subirArchivo(formData, nombre_original)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Extraer el contenido del dropzone
@@ -54,13 +58,15 @@ const Dropzone = () => {
           <ul>
             {archivos}
           </ul>
-          <button
-            type="button"
-            className="bg-blue-700 w-full py-3 rounded-lg text-white my-10 hover:bg-blue-800"
-            onClick={() => crearEnlace()}
-          >
-            Crear enlace
-          </button>
+          {cargando ? <p className="my-10 text-center text-gray-600">Subiendo archivo...</p> :
+            <button
+              type="button"
+              className="bg-blue-700 w-full py-3 rounded-lg text-white my-10 hover:bg-blue-800"
+              onClick={() => crearEnlace()}
+            >
+              Crear enlace
+            </button>
+          }
         </div>
       ) : (
         <div {...getRootProps({ classsName: "dropzone w-full py-32" })}>
