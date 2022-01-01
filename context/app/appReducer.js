@@ -38,6 +38,11 @@ const appReducer = (state, action) => {
         mensaje_archivo: action.payload,
         cargando: false,
       };
+    case CREAR_ENLACE_EXITOSO:
+      return {
+        ...state,
+        url: action.payload
+      }
     default:
       return state;
   }
