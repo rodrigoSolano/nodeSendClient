@@ -77,7 +77,7 @@ const AuthState = ({ children }) => {
         type: USUARIO_AUTENTICADO,
         payload: respuesta.data.usuario
       });
-    }catch{
+    }catch(error){
       console.log("Error al usuario autenticado");
       console.log(error);
     }
