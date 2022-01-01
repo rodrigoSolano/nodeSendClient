@@ -4,7 +4,11 @@ import clienteAxios from "services/config"
 
 const Dropzone = () => {
 
-  const onDrop = useCallback(async acceptedFiles => {
+  const onDropRejected = useCallback(() => {
+    console.log("Archivo rechazado")
+  }, [])
+
+  const onDropAccepted = useCallback(async acceptedFiles => {
     console.log(acceptedFiles)
 
     // Crear un formData
@@ -16,7 +20,12 @@ const Dropzone = () => {
   }, [])
 
   // Extraer el contenido del dropzone
-  const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({ onDrop })
+  const { 
+    getRootProps, 
+    getInputProps, 
+    isDragActive, 
+    acceptedFiles 
+  } = useDropzone({ onDropAccepted, onDropRejected, maxSize: 10000000 })
 
   const archivos = acceptedFiles.map(archivo => (
     <li key={archivo.lastModified} className="bg-white flex-1 p-3 mb-4 shadow-lg rounded" >
