@@ -1,4 +1,7 @@
 module.exports = {
   reactStrictMode: true,
-  API_URL: 'http://localhost:4000',
+  env: {
+    API_URL: 'http://localhost:4000',
+    FRONTEND_URL: 'http://localhost:3000',
+  }
 }

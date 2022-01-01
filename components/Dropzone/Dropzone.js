@@ -65,8 +65,8 @@ const Dropzone = () => {
           }
         </div>
       ) : (
-        <div {...getRootProps({ classsName: "dropzone w-full py-32" })}>
-          <input className="h-100" {...getInputProps()} />
+        <div  {...getRootProps()}>
+          <input  {...getInputProps()} />
           {
             isDragActive
               ?
