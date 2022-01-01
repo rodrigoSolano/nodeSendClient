@@ -1,12 +1,17 @@
-import { useState, useCallback } from "react"
+import { useContext, useCallback } from "react"
 import { useDropzone } from "react-dropzone"
+import appContext from "context/app/appContext"
 import clienteAxios from "services/config"
 
 const Dropzone = () => {
 
-  const onDropRejected = useCallback(() => {
+  const AppContext = useContext(appContext)
+  const { mostrarAlerta } = AppContext
+
+  const onDropRejected = () => {
     console.log("Archivo rechazado")
-  }, [])
+    mostrarAlerta("El archivo es demasiado grande, no debe pesar más de 100MB")
+  }
 
   const onDropAccepted = useCallback(async acceptedFiles => {
     console.log(acceptedFiles)
@@ -20,11 +25,11 @@ const Dropzone = () => {
   }, [])
 
   // Extraer el contenido del dropzone
-  const { 
-    getRootProps, 
-    getInputProps, 
-    isDragActive, 
-    acceptedFiles 
+  const {
+    getRootProps,
+    getInputProps,
+    isDragActive,
+    acceptedFiles
   } = useDropzone({ onDropAccepted, onDropRejected, maxSize: 10000000 })
 
   const archivos = acceptedFiles.map(archivo => (
