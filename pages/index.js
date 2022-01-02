@@ -28,13 +28,13 @@ export default function Home() {
               <span className="font-bold text-red-700 text-3xl uppercase">
                 Tu url es: {" "}
               </span>
-              {`${process.env.FRONTEND_URL}/enlaces/${url}`}
+              {`${process.env.FRONTEND_URL}enlaces/${url}`}
             </p>
             <button
               type="button"
               className="bg-red-500 hover:bg-gray-900 w-full py-2 text-white uppercase font-bold cursor-pointer mt-10"
               onClick={() =>
-                navigator.clipboard.writeText(`${process.env.FRONTEND_URL}/enlaces/${url}`)
+                navigator.clipboard.writeText(`${process.env.FRONTEND_URL}enlaces/${url}`)
               }
             >
               Copiar Enlace
