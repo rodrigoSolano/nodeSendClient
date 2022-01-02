@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Head from "next/head";
 import authContext from "context/auth/authContext";
 import appContext from "context/app/appContext";
 import { useRouter } from "next/router";
@@ -27,7 +28,10 @@ const Header = () => {
 
   return (
     <header className="py-8 flex flex-col md:flex-row items-center justify-between">
-
+      <Head>
+        <title> NodeSend App</title>
+        <link rel="shortcut icon" href="/favicon.ico" />
+      </Head>
       <Image
         src={"/logo.svg"}
         width={'400px'}
