@@ -1,6 +1,7 @@
-import { useState } from "react"
-import { Layout } from "components";
+import { useState, useContext } from "react"
+import { Alerta, Layout } from "components";
 import clienteAxios from "services/config";
+import appContext from "context/app/appContext";
 
 export async function getServerSideProps({ params }) {
   const { enlace } = params;
@@ -24,11 +25,29 @@ export async function getServerSidePaths() {
 }
 
 const Enlace = ({ enlace }) => {
+  console.log("Enlace", enlace)
   const [tienePassword, setTienePassword] = useState(enlace.password)
+  const [password, setPassword] = useState("")
+  const [archivo, setArchivo] = useState( enlace.archivo )
 
-  const verificarPassword = (e) => {
+  const AppContext = useContext(appContext)
+  const { mostrarAlerta, mensaje_archivo } = AppContext
+
+  const verificarPassword = async (e) => {
     e.preventDefault()
     console.log("Verificando password")
+    const data = {
+      password
+    }
+    try {
+      const resultado = await clienteAxios.post(`/api/enlaces/${enlace.enlace}`, data)
+      console.log(resultado)
+      setTienePassword(resultado.data.password)
+      setArchivo(resultado.data.archivo)
+    } catch (error) {
+      console.log(error.response.data.msg)
+      mostrarAlerta(error.response.data.msg)
+    }
   }
 
   return (
@@ -40,9 +59,10 @@ const Enlace = ({ enlace }) => {
             <p className="text-center">
               Este enlace esta protegido por un password, colocalo a continuacion
             </p>
+            {mensaje_archivo && <Alerta />}
             <div className="flex justify-center mt-5">
               <div className="w-full max-w-lg">
-                <form 
+                <form
                   className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4"
                   onSubmit={e => verificarPassword(e)}
                 >
@@ -58,6 +78,8 @@ const Enlace = ({ enlace }) => {
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       id="password"
                       placeholder="Password del enlace"
+                      value={password}
+                      onChange={e => setPassword(e.target.value)}
                     />
                   </div>
                   <input
@@ -75,7 +97,7 @@ const Enlace = ({ enlace }) => {
               Descarga tu archivo
               <div className="flex items-center justify-center mt-10">
                 <a
-                  href={`${process.env.API_URL}/api/archivos/${enlace.archivo}`}
+                  href={`${process.env.API_URL}/api/archivos/${archivo}`}
                   className="bg-red-500 text-center px-10 py-3 rounden uppercase font-bold text-white cursor-pointer"
                   download
                 >
