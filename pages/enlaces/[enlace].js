@@ -15,7 +15,6 @@ export async function getServerSideProps({ params }) {
 
 export async function getServerSidePaths() {
   const enlaces = await clienteAxios.get('/api/enlaces');
-  console.log(enlaces);
   return {
     paths: enlaces.data.enlaces.map(enlace => ({
       params: { enlace: enlace.url },
@@ -25,7 +24,6 @@ export async function getServerSidePaths() {
 }
 
 const Enlace = ({ enlace }) => {
-  console.log("Enlace", enlace)
   const [tienePassword, setTienePassword] = useState(enlace.password)
   const [password, setPassword] = useState("")
   const [archivo, setArchivo] = useState( enlace.archivo )
@@ -35,17 +33,14 @@ const Enlace = ({ enlace }) => {
 
   const verificarPassword = async (e) => {
     e.preventDefault()
-    console.log("Verificando password")
     const data = {
       password
     }
     try {
       const resultado = await clienteAxios.post(`/api/enlaces/${enlace.enlace}`, data)
-      console.log(resultado)
       setTienePassword(resultado.data.password)
       setArchivo(resultado.data.archivo)
     } catch (error) {
-      console.log(error.response.data.msg)
       mostrarAlerta(error.response.data.msg)
     }
   }

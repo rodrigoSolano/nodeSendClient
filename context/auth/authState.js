@@ -30,14 +30,11 @@ const AuthState = ({ children }) => {
   const registrarUsuario = async (datos) => {
     try{
       const respuesta = await clienteAxios.post('/api/usuarios', datos);
-      console.log(respuesta);
       dispatch({
         type: REGISTRO_EXITOSO,
         payload: respuesta.data.msg
       });
     }catch(error){
-      console.log("Error al registrar usuario");
-      console.log(error);
       dispatch({
         type: REGISTRO_ERROR,
         payload: error.response.data.msg
@@ -49,14 +46,11 @@ const AuthState = ({ children }) => {
   const iniciarSesion = async (datos) => {
     try{
       const respuesta = await clienteAxios.post('/api/auth', datos);
-      console.log(respuesta);
       dispatch({
         type: LOGIN_EXITOSO,
         payload: respuesta.data.token
       });
     }catch(error){
-      console.log("Error al iniciar sesion");
-      console.log(error);
       dispatch({
         type: LOGIN_ERROR,
         payload: error.response.data.msg
@@ -72,14 +66,11 @@ const AuthState = ({ children }) => {
         tokenAuth(token);
       }
       const respuesta = await clienteAxios.get('/api/auth');
-      console.log(respuesta);
       dispatch({
         type: USUARIO_AUTENTICADO,
         payload: respuesta.data.usuario
       });
     }catch(error){
-      console.log("Error al usuario autenticado");
-      console.log(error);
     }
   }
 

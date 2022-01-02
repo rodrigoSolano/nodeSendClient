@@ -28,7 +28,13 @@ export default function Home() {
               <span className="font-bold text-red-700 text-3xl uppercase">
                 Tu url es: {" "}
               </span>
-              {`${process.env.FRONTEND_URL}enlaces/${url}`}
+              <a 
+                className="text-blue-500"
+                href={`${process.env.FRONTEND_URL}enlaces/${url}`} 
+                target={"_blank"}
+              >
+                {`${process.env.FRONTEND_URL}enlaces/${url}`}
+              </a>
             </p>
             <button
               type="button"
@@ -46,14 +52,14 @@ export default function Home() {
             <div className="lg:flex md:shadow-lg p-5 bg-white rounded-lg py-10">
               <Dropzone />
               <div className="md:flex-1 mb-3 mx-2 mt-16 lg:mt-0">
-                <h2 className="text-4xl font-sans font-bold text-gray-800 my-4">
+                <h2 className="text-3xl font-sans font-bold text-gray-800 my-4">
                   Compartir archivos de forma sencilla, segura y privada
                 </h2>
-                <p className="text-lg leading-loose">
+                <p className="text-md leading-loose">
                   <span className="text-red-500 font-bold">ReactNodeSend</span> te permite compartir archivos con cifrado de extremo a extremo, y un archivo es eliminado despues de ser descargado. Asi que puedes mantener lo que compartes en privado y asegurarte de que tus cosas no permanezcan en linea para siempre.
                 </p>
                 <Link href="/crearCuenta">
-                  <a className="text-red-500 font-bold text-lg hover:text-red-700">
+                  <a className="text-red-500 font-bold text-md hover:text-red-700">
                     Crea una cuenta para mayores beneficios
                   </a>
                 </Link>

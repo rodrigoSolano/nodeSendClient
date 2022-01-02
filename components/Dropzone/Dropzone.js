@@ -14,12 +14,10 @@ const Dropzone = () => {
   const { usuario, autenticado } = AuthContext
 
   const onDropRejected = () => {
-    console.log("Archivo rechazado")
     mostrarAlerta("El archivo es demasiado grande, no debe pesar más de 100MB")
   }
 
   const onDropAccepted = useCallback(async acceptedFiles => {
-    console.log(acceptedFiles)
 
     // Crear un formData
     const formData = new FormData()
@@ -61,7 +59,7 @@ const Dropzone = () => {
           </ul>
 
           {
-            autenticado ? <Formulario /> : 'El usuario no esta autenticado'
+            autenticado && <Formulario /> 
           }
 
           {cargando ? <p className="my-10 text-center text-gray-600">Subiendo archivo...</p> :

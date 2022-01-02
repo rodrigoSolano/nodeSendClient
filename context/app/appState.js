@@ -32,7 +32,6 @@ const AppState = ({ children }) => {
 
   // Muestra una alerta
   const mostrarAlerta = msg => {
-    console.log(msg);
     dispatch({
       type: MOSTRATRAR_ALERTA,
       payload: msg
@@ -61,7 +60,6 @@ const AppState = ({ children }) => {
         }
       });
     } catch (error) {
-      console.log(error);
       dispatch({
         type: SUBIR_ARCHIVO_ERROR,
         payload: error.response.data.msg
@@ -71,7 +69,6 @@ const AppState = ({ children }) => {
 
   // Crea un enlace una vez que el archivo se sube
   const crearEnlace = async () => {
-    console.log("Creando enlace...")
     const data = {
       nombre: state.nombre,
       nombre_original: state.nombre_original,
@@ -81,13 +78,11 @@ const AppState = ({ children }) => {
     }
     try {
       const resultado = await clienteAxios.post("/api/enlaces", data)
-      console.log(resultado.data.msg);
       dispatch({
         type: CREAR_ENLACE_EXITOSO,
         payload: resultado.data.msg
       })
     } catch (error) {
-      console.log(error);
     }
   }
 

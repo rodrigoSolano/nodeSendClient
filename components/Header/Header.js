@@ -27,7 +27,7 @@ const Header = () => {
   }, [])
 
   return (
-    <header className="py-8 flex flex-col md:flex-row items-center justify-between">
+    <header className="py-8 md:py-2 flex flex-col md:flex-row items-center justify-between">
       <Head>
         <title> NodeSend App</title>
         <link rel="shortcut icon" href="/favicon.ico" />
@@ -38,11 +38,22 @@ const Header = () => {
         height={'50px'}
         alt="Node Send"
         onClick={redireccionar}
+        className="cursor-pointer"
       />
 
       <div>
-        {!usuario ? (
-          <>
+        {usuario ? (
+          <div className="flex items-center">
+            <p className="mr-2">Hola {usuario.nombre}</p>
+            <button
+              className="bg-black px-5 py-3 rounded-lg text-white font-bold uppercase"
+              onClick={() => cerrarSesion()}
+            >
+              Cerrar Sesion
+            </button>
+          </div>
+        ) : (
+          <div className="py-5">
             <Link href="/login">
               <a className="bg-red-500 px-5 py-3 rounded-lg text-white font-bold uppercase mr-2" >
                 Iniciar Sesion
@@ -54,16 +65,6 @@ const Header = () => {
                 Crear Cuenta
               </a>
             </Link>
-          </>
-        ) : (
-          <div className="flex items-center">
-            <p className="mr-2">Hola {usuario.nombre}</p>
-            <button
-              className="bg-black px-5 py-3 rounded-lg text-white font-bold uppercase"
-              onClick={() => cerrarSesion()}
-            >
-              Cerrar Sesion
-            </button>
           </div>
         )}
 
