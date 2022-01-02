@@ -6,6 +6,7 @@ import {
   SUBIR_ARCHIVO_EXITOSO,
   CREAR_ENLACE_EXITOSO,
   CREAR_ENLACE_ERROR,
+  LIMPIAR_STATE
 } from "types"
 
 const appReducer = (state, action) => {
@@ -42,6 +43,17 @@ const appReducer = (state, action) => {
       return {
         ...state,
         url: action.payload
+      }
+    case LIMPIAR_STATE:
+      return {
+        mensaje_archivo: '',
+        nombre: '',
+        nombre_original: '',
+        cargando: false,
+        descargas: 1,
+        password: '',
+        autor: null,
+        url: '',
       }
     default:
       return state;
