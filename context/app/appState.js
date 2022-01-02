@@ -10,7 +10,9 @@ import {
   SUBIR_ARCHIVO_EXITOSO,
   CREAR_ENLACE_EXITOSO,
   CREAR_ENLACE_ERROR,
-  LIMPIAR_STATE
+  LIMPIAR_STATE,
+  AGREGAR_PASSWORD,
+  AGREGAR_DESCARGAS
 } from "types"
 
 const AppState = ({ children }) => {
@@ -96,6 +98,22 @@ const AppState = ({ children }) => {
     })
   }
 
+  // Agregar password
+  const agregarPassword = password => {
+    dispatch({
+      type: AGREGAR_PASSWORD,
+      payload: password
+    })
+  }
+
+  // Agregar numero de descargas
+  const agregarDescargas = descargas => {
+    dispatch({
+      type: AGREGAR_DESCARGAS,
+      payload: parseInt(descargas)
+    })
+  }
+
   return (
     <appContext.Provider value={{
       mensaje_archivo: state.mensaje_archivo,
@@ -109,7 +127,9 @@ const AppState = ({ children }) => {
       mostrarAlerta,
       subirArchivo,
       crearEnlace,
-      limpiarState
+      limpiarState,
+      agregarPassword,
+      agregarDescargas
     }}
     >
       {children}

@@ -6,7 +6,9 @@ import {
   SUBIR_ARCHIVO_EXITOSO,
   CREAR_ENLACE_EXITOSO,
   CREAR_ENLACE_ERROR,
-  LIMPIAR_STATE
+  LIMPIAR_STATE,
+  AGREGAR_PASSWORD,
+  AGREGAR_DESCARGAS
 } from "types"
 
 const appReducer = (state, action) => {
@@ -54,6 +56,16 @@ const appReducer = (state, action) => {
         password: '',
         autor: null,
         url: '',
+      }
+    case AGREGAR_PASSWORD:
+      return {
+        ...state,
+        password: action.payload
+      }
+    case AGREGAR_DESCARGAS:
+      return {
+        ...state,
+        descargas: action.payload
       }
     default:
       return state;
