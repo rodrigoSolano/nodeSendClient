@@ -7,13 +7,12 @@ const Layout = ({ children }) => {
     <>
       <Head>
         <title>Node Send</title>
-        <script src="https://cdn.tailwindcss.com"></script>
       </Head>
 
       <div className="bg-gray-100 min-h-screen">
         <div className="container mx-auto">
           <Header />
-          <main className="mt-20">
+          <main>
             {children}
           </main>
         </div>
