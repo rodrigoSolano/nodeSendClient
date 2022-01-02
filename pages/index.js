@@ -32,6 +32,7 @@ export default function Home() {
                 className="text-blue-500"
                 href={`${process.env.FRONTEND_URL}enlaces/${url}`} 
                 target={"_blank"}
+                rel="noreferrer"
               >
                 {`${process.env.FRONTEND_URL}enlaces/${url}`}
               </a>
