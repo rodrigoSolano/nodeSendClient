@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Layout } from "components";
 import clienteAxios from "services/config";
 
@@ -23,21 +24,68 @@ export async function getServerSidePaths() {
 }
 
 const Enlace = ({ enlace }) => {
-  console.log("Enlace: ", enlace);
+  const [tienePassword, setTienePassword] = useState(enlace.password)
+
+  const verificarPassword = (e) => {
+    e.preventDefault()
+    console.log("Verificando password")
+  }
+
   return (
     <Layout>
-      <h1 className="text-4xl text-center text-gray-700">
-        Descarga tu archivo
-        <div className="flex items-center justify-center mt-10">
-          <a
-            href={`${process.env.API_URL}/api/archivos/${enlace.archivo}`}
-            className="bg-red-500 text-center px-10 py-3 rounden uppercase font-bold text-white cursor-pointer"
-            download
-          >
-            Aqui
-          </a>
-        </div>
-      </h1>
+      {
+        tienePassword
+          ?
+          <>
+            <p className="text-center">
+              Este enlace esta protegido por un password, colocalo a continuacion
+            </p>
+            <div className="flex justify-center mt-5">
+              <div className="w-full max-w-lg">
+                <form 
+                  className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4"
+                  onSubmit={e => verificarPassword(e)}
+                >
+                  <div className="mb-4 ">
+                    <label
+                      className="block text-black text-sm font-bold mb-2"
+                      htmlFor="password"
+                    >
+                      Password
+                    </label>
+                    <input
+                      type="password"
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      id="password"
+                      placeholder="Password del enlace"
+                    />
+                  </div>
+                  <input
+                    type="submit"
+                    className="bg-red-500 hover:bg-gray-900 w-full py-2 text-white uppercase font-bold cursor-pointer"
+                    value={"Validar password..."}
+                  />
+                </form>
+              </div>
+            </div>
+          </>
+          :
+          (
+            <h1 className="text-4xl text-center text-gray-700">
+              Descarga tu archivo
+              <div className="flex items-center justify-center mt-10">
+                <a
+                  href={`${process.env.API_URL}/api/archivos/${enlace.archivo}`}
+                  className="bg-red-500 text-center px-10 py-3 rounden uppercase font-bold text-white cursor-pointer"
+                  download
+                >
+                  Aqui
+                </a>
+              </div>
+            </h1>
+          )
+      }
+
     </Layout>
   )
 }
